@@ -1,0 +1,49 @@
+
+OBS: see datasus.gov.br
+
+Conselheiro
+- nome
+- data de nascimento
+- gênero
+- escolaridade
+- profissão
+- contato
+- partido
+- segmento (trabalhador, gestor/prestador, usuário)
+- gestão *
+- data de entrada
+- data de saída
+
+Município (conselho)
+- endereço
+- e-mail
+- telefone
+- fundo municipal de saúde (?)
+
+Gestão
+- município *
+- ano
+- presidente *
+- secretário geral *
+- primeiro secretário *
+- segundo secretário *
+
+Resolução
+- número
+- data
+- tema
+- homologada
+- gestão *
+
+* fields that should reference entries in other tables.
+
+QUESTIONS:
+----------
+
+- Presidente, secretário geral, primeiro e segundo secretários também são conselheiros?
+- Tabela de escolaridades?
+- Tabela de segmentos?
+- RG, chave primária dos conselheiros?
+- Número da resolução é único num escopo nacional?
+
+
