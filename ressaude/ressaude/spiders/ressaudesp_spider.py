@@ -19,7 +19,7 @@ class RessaudespSpider(scrapy.Spider):
 		name = elmt.xpath("a[@href]/strong/text()").extract()[0]
 		info = re.search("\w[0-9]*/[0-9]*", name).group(0)
 		numbers = re.split("/", info)
-		item['year'] = int(numbers[1]) 
-		item['number'] = int(numbers[0])
+		item['year'] = numbers[1]
+		item['number'] = numbers[0]
 		yield item
 
