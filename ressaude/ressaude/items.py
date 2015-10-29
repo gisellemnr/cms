@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 
 # Define here the models for your scraped items
 #
@@ -7,14 +7,9 @@
 
 import scrapy
 
-class RessaudebhItem(scrapy.Item):
-    year = scrapy.Field()
-    number = scrapy.Field()
-    description = scrapy.Field()
-    link = scrapy.Field()
-
-class RessaudespItem(scrapy.Item):
-    year = scrapy.Field()
-    number = scrapy.Field()
-    description = scrapy.Field()
-    link = scrapy.Field()
+class ResolutionItem(scrapy.Item):
+  city = scrapy.Field()
+  year = scrapy.Field()
+  number = scrapy.Field()
+  description = scrapy.Field()
+  link = scrapy.Field()

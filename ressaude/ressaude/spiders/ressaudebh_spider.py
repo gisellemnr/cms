@@ -1,7 +1,7 @@
 import scrapy
 import urlparse
 
-from ressaude.items import RessaudebhItem
+from ressaude.items import ResolutionItem
 
 class RessaudebhSpider(scrapy.Spider):
     name = "RessaudeBH"
@@ -22,7 +22,8 @@ class RessaudebhSpider(scrapy.Spider):
 	for elmt in response.xpath("//div[@id='PORTLET_CONTEUDO_0']/table/tbody/tr"):
 	    col_1 = elmt.xpath('td')[0]
 	    col_2 = elmt.xpath('td')[1]
-	    item = RessaudebhItem()
+	    item = ResolutionItem()
+            item['city'] = 'Belo Horizonte'
 	    item['year'] = response.meta['year']
 	    #print item['year']
 	    number_info = col_1

@@ -1,7 +1,9 @@
+# coding=latin-1
+
 import scrapy
 import re
 
-from ressaude.items import RessaudespItem
+from ressaude.items import ResolutionItem
 
 class RessaudespSpider(scrapy.Spider):
     name = "RessaudeSP"
@@ -13,8 +15,9 @@ class RessaudespSpider(scrapy.Spider):
     def parse(self, response):
 	for elmt in response.xpath("//p[@align='justify']"):
 	    if elmt.xpath("a[@href]"):
-		item = RessaudespItem()
-		item['description'] = elmt.xpath('text()').extract()[0]
+		item = ResolutionItem()
+                item['city'] = 'São Paulo'.decode('latin-1').encode('utf-8')
+		item['description'] = elmt.xpath('text()').extract()[0].strip()
 		item['link'] = elmt.xpath("a/@href").extract()
 		name = elmt.xpath("a[@href]/strong/text()").extract()[0]
 		info = re.search("\w[0-9]*/[0-9]*", name).group(0)
