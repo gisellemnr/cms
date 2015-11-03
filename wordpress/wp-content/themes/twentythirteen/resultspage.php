@@ -16,15 +16,10 @@ function get_resolutions() {
     die("Error connecting to database: " . $db->connect_error);
   }
 
-  $description = $_GET['description'];
-  $yearstart = $_GET['yearfrom'];
-  $yearend = $_GET['yearto'];
-  $city = $_GET['city'];
-
-  echo $description."\n";
-  echo $yearstart."\n";
-  echo $yearend."\n";
-  echo $city."\n";
+  $description = "%".$_GET['description']."%";
+  $city = "%".$_GET['city']."%";
+  $yearstart = $_GET['yearfrom'] ? (int) $_GET['yearfrom'] : 1900;
+  $yearend = $_GET['yearto'] ? (int) $_GET['yearto'] : 2500;
 
   # Search parameters:
   #
@@ -37,12 +32,23 @@ function get_resolutions() {
     printf("Error loading character set utf8: %s\n", $db->error);
   }
 
-  $sql = "SELECT city, number, link, description, year FROM `resolutions`";
+  $query = $db->prepare("SELECT city, number, link, description, year FROM `resolutions` "
+    ."WHERE `description` LIKE ? "
+    ."AND `city` LIKE ? "
+    ."AND `year` >= ? "
+    ."AND `year` <= ?");
 
-  $result = $db->query($sql);
+  $query->bind_param("ssii", $description, $city, $yearstart, $yearend);
+  $query->execute();
+
+  # SELECT * FROM `resolutions` WHERE `description` LIKE '%Aprova%' AND `city` LIKE
+  # '%Horizonte%' AND `year` >= 1997 AND `year` <= 1997
+
+  $result = $query->get_result();
   $table = "";
 
   if ($result->num_rows > 0) {
+    $table .= "{$result->num_rows} resolu&ccedil;&otilde;es encontradas.<br/>";
     $table .= "<table><tr>"
       ."<th style=\"width:100px\">Cidade</th>"
       ."<th style=\"width:100px;text-align:center\">N&uacute;mero</th>"
@@ -65,6 +71,7 @@ function get_resolutions() {
     $table .= "Nenhum resultado.";
   }
 
+  $result->close();
   $db->close();
 
   echo $table;

@@ -20,10 +20,9 @@ get_header(); ?>
 
 			<div class="entry-content">
                           <form role="search" action="<?php echo site_url('/index.php/resultados'); ?>" method="get">
-                            Cont&eacute;m as palavras: <input type="text" name="description"/><br/>
-                            Do ano <input type="text" name="yearfrom"/> at&eacute; <input type="text" name="yearto"/><br/>
-                            Cidade: <input type="text" name="city"><br/>
-                            <input type="hidden" name="post_type" value="resolutions"/>
+                            Cont&eacute;m as palavras: <input type="text" size=100 name="description"/><br/><br/>
+                            Do ano <input type="text" size=4 name="yearfrom"/> at&eacute; <input type="text" size=4 name="yearto"/><br/><br/>
+                            Cidade: <input type="text" size=20 name="city"><br/><br/>
                             <input type="submit" name="submit" value="Buscar"/>
                           </form>
 			</div><!-- .entry-content -->
