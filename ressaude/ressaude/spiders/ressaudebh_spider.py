@@ -23,29 +23,35 @@ class RessaudebhSpider(scrapy.Spider):
 	    col_1 = elmt.xpath('td')[0]
 	    col_2 = elmt.xpath('td')[1]
 	    item = ResolutionItem()
-            item['city'] = 'Belo Horizonte'
-	    item['year'] = response.meta['year']
-	    #print item['year']
+            city = 'Belo Horizonte'
+            number = -1
+            desc = ''
+	    year = response.meta['year']
+            link = ''
 	    number_info = col_1
 	    if col_1.xpath('p'):
 		number_info = col_1.xpath('p')
 	    if number_info.xpath('a'):
 		if number_info.xpath('a/span'):
-		  item['number'] = number_info.xpath('a/span/text()').extract()[0]
+		  number = number_info.xpath('a/span/text()').extract()[0]
 		else:
-		  item['number'] = number_info.xpath('a/text()').extract()[0]
-		link = number_info.xpath('a/@href').extract()[0]
-		item['link'] = urlparse.urljoin(response.url, link)
+		  number = number_info.xpath('a/text()').extract()[0]
+		linkstr = number_info.xpath('a/@href').extract()[0]
+		link = urlparse.urljoin(response.url, linkstr)
 	    else:
-	      item['number'] = number_info.xpath('text()').extract()[0]
-	      item['link'] = ''
-	    #print item['number']
+	      number = number_info.xpath('text()').extract()[0]
 	    if col_2.xpath('span'):
-		item['description'] = col_2.xpath('span/text()').extract()[0]
+		desc = col_2.xpath('span/text()').extract()[0]
 	    elif col_2.xpath('p'):
-		item['description'] = col_2.xpath('p/text()').extract()[0]
+		desc = col_2.xpath('p/text()').extract()[0]
 	    else:
-		item['description'] = col_2.xpath('text()').extract()[0]
+		desc = col_2.xpath('text()').extract()[0]
+            # Adding fields in the correct order.
+            item['city'] = city
+            item['number'] = number
+            item['description'] = desc
+            item['year'] = year
+            item['link'] = link
 	    yield item
 
 

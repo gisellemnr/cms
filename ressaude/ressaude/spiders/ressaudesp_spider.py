@@ -16,13 +16,19 @@ class RessaudespSpider(scrapy.Spider):
 	for elmt in response.xpath("//p[@align='justify']"):
 	    if elmt.xpath("a[@href]"):
 		item = ResolutionItem()
-                item['city'] = 'São Paulo'.decode('latin-1').encode('utf-8')
-		item['description'] = elmt.xpath('text()').extract()[0].strip()
-		item['link'] = elmt.xpath("a/@href").extract()
+                city = 'São Paulo'.decode('latin-1').encode('utf-8')
+		desc = elmt.xpath('text()').extract()[0].strip()
+		link = elmt.xpath("a/@href").extract()
 		name = elmt.xpath("a[@href]/strong/text()").extract()[0]
 		info = re.search("\w[0-9]*/[0-9]*", name).group(0)
 		numbers = re.split("/", info)
-		item['year'] = numbers[1]
-		item['number'] = numbers[0]
+		year = numbers[1]
+		number = numbers[0]
+                # Adding fields in the correct order.
+                item['city'] = city
+                item['number'] = number
+                item['description'] = desc
+                item['year'] = year
+                item['link'] = link
 		yield item
 
