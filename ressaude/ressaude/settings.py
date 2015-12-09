@@ -13,5 +13,7 @@ BOT_NAME = 'ressaude'
 SPIDER_MODULES = ['ressaude.spiders']
 NEWSPIDER_MODULE = 'ressaude.spiders'
 
+DOWNLOAD_DELAY = 5
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ressaude (+http://www.yourdomain.com)'

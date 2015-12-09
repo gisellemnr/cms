@@ -3,6 +3,8 @@ import urlparse
 
 from ressaude.items import ResolutionItem
 
+# BH's website only works with some download delay
+
 class RessaudebhSpider(scrapy.Spider):
     name = "RessaudeBH"
     allowed_domains = ["portalpbh.pbh.gov.br"]
